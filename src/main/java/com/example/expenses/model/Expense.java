@@ -13,8 +13,17 @@ import java.time.Instant;
 @AllArgsConstructor
 @Data
 public class Expense {
-
     @Id
+    @SequenceGenerator(
+            name = "expense_sequence",
+            sequenceName = "expense_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "expense_sequence"
+    )
+    //@Id
     private Long id;
 
     private Instant expenseDate;

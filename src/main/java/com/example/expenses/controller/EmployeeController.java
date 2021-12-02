@@ -1,6 +1,8 @@
 package com.example.expenses.controller;
 
 import com.example.expenses.model.Employee;
+import com.example.expenses.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,13 +13,25 @@ import java.util.List;
 @RequestMapping(path="api/v1/employee")
 public class EmployeeController {
 
+    public final EmployeeService employeeService;
+
+    @Autowired
+    public EmployeeController(EmployeeService employeeService)
+    {
+        this.employeeService = employeeService;
+    }
+
     @GetMapping
     public List<Employee> getEmployees()
     {
-        return List.of(
-                new Employee(1L, "dikshya", "dixyacharya@gmail.com")
-        );
+        return employeeService.getEmployees();
     }
+
+    /*
+    public int getEmpCount()
+    {
+        return 0;
+    }*/
 
    /* @GetMapping
     public Employee getEmployeeById(Long id)

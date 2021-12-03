@@ -1,34 +1,26 @@
 package com.example.expenses.service;
 
 import com.example.expenses.repository.EmployeeRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.Mockito.verify;
 
-
+@ExtendWith(MockitoExtension.class)
 class EmployeeServiceTest {
 
 
     @Mock private EmployeeRepository employeeRepository;
-    private AutoCloseable autoCloseable;
     private EmployeeService underTest;
 
     //this runs before each test
     @BeforeEach
     void setUp() {
-        autoCloseable = MockitoAnnotations.openMocks(this);
         underTest = new EmployeeService(employeeRepository);
-    }
-
-    //allows us to close after test
-    @AfterEach
-    void tearDown() throws Exception {
-        autoCloseable.close();
     }
 
     @Test

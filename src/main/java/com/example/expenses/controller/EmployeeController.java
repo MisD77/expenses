@@ -12,8 +12,7 @@ import java.util.List;
 public class EmployeeController {
 
     //when adding service layer between controller and repository
-    public final EmployeeService employeeService;
-
+    private final EmployeeService employeeService;
 
     @Autowired
     public EmployeeController(EmployeeService employeeService)

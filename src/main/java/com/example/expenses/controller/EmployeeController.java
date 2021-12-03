@@ -14,6 +14,7 @@ public class EmployeeController {
     //when adding service layer between controller and repository
     public final EmployeeService employeeService;
 
+
     @Autowired
     public EmployeeController(EmployeeService employeeService)
     {
@@ -29,12 +30,15 @@ public class EmployeeController {
         this.employeeRepository = employeeRepository;
     }*/
 
+    //get method to get all employees using the url from db
     @GetMapping
     public List<Employee> getEmployees()
     {
         return employeeService.getEmployees();
     }
 
+
+    //post method to get add employee into the db
     @PostMapping
     public void registerNewEmployee(@RequestBody List<Employee> employee)
     {
@@ -44,19 +48,27 @@ public class EmployeeController {
         }
     }
 
+
+    //get method to get an employee by a given id
     @GetMapping(path = "getEmployeeById/{id}")
     public Employee getEmployeeById(@PathVariable Long id)
     {
        return employeeService.getEmployeeById(id);
     }
 
+
+    /*put method to update the employee email(or anything else name etc using id)
+     find the employee using get request by id, then updates in database
+     */
     @PutMapping(path="updateEmailById/{id}")
     public void updateEmailById(@RequestBody String newEmail, @PathVariable Long id)
     {
         employeeService.updateEmailById(newEmail, id);
     }
 
-   @DeleteMapping(path="deleteEmployeeById/{id}")
+
+    //delete method to delete an employee from database
+    @DeleteMapping(path="deleteEmployeeById/{id}")
     public void deleteEmployeeById(@PathVariable Long id)
     {
         employeeService.deleteEmployeeById(id);

@@ -9,8 +9,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -19,6 +19,7 @@ class EmployeeServiceTest {
 
     @Mock private EmployeeRepository employeeRepository;
     private EmployeeService underTest;
+
 
     //this runs before each test
     @BeforeEach
@@ -59,12 +60,26 @@ class EmployeeServiceTest {
     }
 
     //when email exists
-    @Test
-    @Disabled
+    /*@Test
     void shouldNotRegisterEmployeeIfEmailExists() {
+        //given the employee and email
+        String email = "jdoe@gmail.com";
+        Employee employee = new Employee(1L,
+                "jackie",
+                email);
+
+        given(employeeRepository.selectExistsEmail(employee.getEmail())).willReturn(true);
+
+        //when
+        //then
+        assertThatThrownBy(() -> underTest.registerNewEmployee(employee)).
+                isInstanceOf(BadRequestException.class).
+                hasMessageContaining("Email " + employee.getEmail() + " taken, hence employee cannot be added");
+
+        verify(employeeRepository, never()).save(any());
 
     }
-
+*/
     @Test
     @Disabled
     void getEmployeeById() {

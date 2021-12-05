@@ -35,7 +35,7 @@ class EmployeeRepositoryTest {
         String email = "jdoe@gmail.com";
 
         //when the email is expected
-        boolean expected = underTest.selectExistsEmail(email);
+        Boolean expected = underTest.selectExistsEmail(email);
 
         assertThat(expected).isFalse();
     }

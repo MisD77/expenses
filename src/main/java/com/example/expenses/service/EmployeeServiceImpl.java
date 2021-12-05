@@ -31,7 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @SneakyThrows
     public void registerNewEmployee(Employee employee)
     {
-        boolean existsEmail = employeeRepository.selectExistsEmail(employee.getEmail());
+        Boolean existsEmail = employeeRepository.selectExistsEmail(employee.getEmail());
         if (!existsEmail)
         {
             employeeRepository.save(employee);

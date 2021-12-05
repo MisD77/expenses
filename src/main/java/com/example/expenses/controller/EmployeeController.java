@@ -47,7 +47,6 @@ public class EmployeeController {
         }
     }
 
-
     //get method to get an employee by a given id
     @GetMapping(path = "getEmployeeById/{id}")
     public Employee getEmployeeById(@PathVariable Long id)
@@ -74,3 +73,4 @@ public class EmployeeController {
     }
 
 }
+    //can have enmployee/{id} only for get by ID

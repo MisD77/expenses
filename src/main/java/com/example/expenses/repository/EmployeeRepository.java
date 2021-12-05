@@ -13,7 +13,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
             "SELECT CASE WHEN COUNT(s) > 0 THEN " +
             "TRUE ELSE FALSE END " +
             "FROM Employee e " +
-            "WHERE e.email = ?1"
+            "WHERE e.email = e.email"
     )
 
     Boolean selectExistsEmail(String email);

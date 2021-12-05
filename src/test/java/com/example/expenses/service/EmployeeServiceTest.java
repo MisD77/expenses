@@ -20,7 +20,7 @@ class EmployeeServiceTest {
     //this runs before each test
     @BeforeEach
     void setUp() {
-        underTest = new EmployeeService(employeeRepository);
+        underTest = new EmployeeServiceImpl(employeeRepository);
     }
 
     @Test

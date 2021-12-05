@@ -28,4 +28,13 @@ class EmployeeRepositoryTest {
         //then assert it's true
         assertThat(expected).isTrue();
     }
+
+    @Test
+    void itShouldReturnFalseIfEmailDoesNotExist() {
+        String email = "jdoe@gmail.com";
+        //when the email is expected
+        Boolean expected = underTest.selectExistsEmail(email);
+
+        assertThat(expected).isFalse();
+    }
 }

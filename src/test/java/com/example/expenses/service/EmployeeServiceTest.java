@@ -29,6 +29,11 @@ class EmployeeServiceTest {
 
     @Test
     void getEmployeesTest() {
+        //given the employee and email
+        String email = "jdoe@gmail.com";
+        Employee employee = new Employee(1L,
+                "jackie",
+                email);
         //when
         underTest.getEmployees();
         //then verify our mock which is employeeRepository and fail
@@ -36,7 +41,6 @@ class EmployeeServiceTest {
 
     }
 
-    //when email doesn't exists
     @Test
     void registerNewEmployeeTest() {
         //given the employee and email
@@ -80,9 +84,11 @@ class EmployeeServiceTest {
 
     }
 */
+
     @Test
     @Disabled
     void getEmployeeById() {
+
     }
 
     @Test

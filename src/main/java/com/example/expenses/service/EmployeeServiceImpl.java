@@ -6,7 +6,6 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.ws.rs.BadRequestException;
 import java.util.List;
 
 @Service
@@ -32,12 +31,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     @SneakyThrows
     public void registerNewEmployee(Employee employee)
     {
-        Boolean existsEmail = employeeRepository.selectExistsEmail(employee.getEmail());
+        /*Boolean existsEmail = employeeRepository.selectExistsEmail(employee.getEmail());
 
         if (existsEmail)
         {
             throw new BadRequestException("Email " + employee.getEmail() + " taken, hence employee cannot be added");
-        }
+        }*/
+
         employeeRepository.save(employee);
 
     }

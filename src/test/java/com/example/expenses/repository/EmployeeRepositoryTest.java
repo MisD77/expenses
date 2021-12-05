@@ -31,9 +31,11 @@ class EmployeeRepositoryTest {
 
     @Test
     void itShouldReturnFalseIfEmailDoesNotExist() {
+        //given
         String email = "jdoe@gmail.com";
+
         //when the email is expected
-        Boolean expected = underTest.selectExistsEmail(email);
+        boolean expected = underTest.selectExistsEmail(email);
 
         assertThat(expected).isFalse();
     }

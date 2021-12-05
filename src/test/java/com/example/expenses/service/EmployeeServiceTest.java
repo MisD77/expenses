@@ -38,8 +38,7 @@ class EmployeeServiceTest {
     }
 
     @Test
-    @Disabled
-    void registerNewEmployee() {
+    void registerNewEmployeeTest() {
     }
 
     @Test

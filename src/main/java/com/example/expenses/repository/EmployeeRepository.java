@@ -16,5 +16,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
             "WHERE e.email = e.email"
     )
 
-    Boolean selectExistsEmail(String email);
+    boolean selectExistsEmail(String email);
 }

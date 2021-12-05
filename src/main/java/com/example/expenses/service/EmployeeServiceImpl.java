@@ -28,18 +28,25 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     //when you find employee vs don't find the employee
-    public void registerNewEmployee(Employee employee) {
-        employeeRepository.save(employee);
+    @SneakyThrows
+    public void registerNewEmployee(Employee employee)
+    {
+        boolean existsEmail = employeeRepository.selectExistsEmail(employee.getEmail());
+        if (!existsEmail)
+        {
+            employeeRepository.save(employee);
+            System.out.println("Employee added successfully");
+        }
     }
 
     @SneakyThrows
     public void updateEmailById(String newEmail, Long id) {
         Employee employee = employeeRepository.getById(id);
-            if (employee != null) {
+            if (employee != null)
+            {
                 employee.setEmail(newEmail);
-                if (employeeRepository.save(employee).getEmail().equals(newEmail)) {
+                if (employeeRepository.save(employee).getEmail().equals(newEmail))
                     System.out.println("Email updated successfully");
-                }
             }
     }
 
@@ -50,13 +57,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         {
             employeeRepository.deleteById(id);
             if (employeeRepository.getById(id) == null)
-            {
                 System.out.println("Employee deleted successfully");
-            }
         }
 
     }
     //integration test at controller level
     //complete all tests  from service and create tests for controller
-    //fix the REST signatures
+    //fix the REST signatures in controller - done
 }

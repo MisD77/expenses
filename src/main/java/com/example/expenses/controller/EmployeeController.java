@@ -36,7 +36,6 @@ public class EmployeeController {
         return employeeService.getEmployees();
     }
 
-
     //post method to get add employee into the db
     @PostMapping
     public void registerNewEmployee(@RequestBody List<Employee> employee)
@@ -48,25 +47,23 @@ public class EmployeeController {
     }
 
     //get method to get an employee by a given id
-    @GetMapping(path = "getEmployeeById/{id}")
+    @GetMapping(path = "get/{id}")
     public Employee getEmployeeById(@PathVariable Long id)
     {
        return employeeService.getEmployeeById(id);
     }
 
-
     /*put method to update the employee email(or anything else name etc using id)
      find the employee using get request by id, then updates in database
      */
-    @PutMapping(path="updateEmailById/{id}")
+    @PutMapping(path="update/{id}")
     public void updateEmailById(@RequestBody String newEmail, @PathVariable Long id)
     {
         employeeService.updateEmailById(newEmail, id);
     }
 
-
     //delete method to delete an employee from database
-    @DeleteMapping(path="deleteEmployeeById/{id}")
+    @DeleteMapping(path="delete/{id}")
     public void deleteEmployeeById(@PathVariable Long id)
     {
         employeeService.deleteEmployeeById(id);

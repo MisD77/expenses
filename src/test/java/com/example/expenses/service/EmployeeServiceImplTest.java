@@ -30,7 +30,8 @@ class EmployeeServiceImplTest {
                 "jdoe@gmail.com");
         //when
         underTest.getEmployees();
-        //then verify our mock which is employeeRepository and fail
+
+        //then verify our mock
         verify(employeeRepository).findAll();
     }
 
@@ -40,8 +41,10 @@ class EmployeeServiceImplTest {
         Employee employee = new Employee(1L,
                 "jackie",
                 "jdoe@gmail.com");
+
         //when
         underTest.getEmployeeById(1L);
+
         //then verify our mock which is employeeRepository and fail
         verify(employeeRepository).findById(1L);
 
@@ -51,8 +54,10 @@ class EmployeeServiceImplTest {
     void getEmployeeByIdReturnsNullTest(){
         //given
         Employee employee = null;
+
         //when
         underTest.getEmployeeById(1L);
+
         //then verify our mock which is employeeRepository and fail
         verify(employeeRepository).findById(1L);
     }
@@ -73,10 +78,14 @@ class EmployeeServiceImplTest {
 
     @Test
     void updateEmailByIdTest() {
-        // Setup
+        // given
         Employee employee = new Employee(1L, "dikshya", "email");
         when(employeeRepository.getById(1L)).thenReturn(employee);
+
+        //Run the test
         underTest.updateEmailById("newEmail@gmail.com", 1L);
+
+        //verify the results
         verify(employeeRepository).save(employee);
 
     }

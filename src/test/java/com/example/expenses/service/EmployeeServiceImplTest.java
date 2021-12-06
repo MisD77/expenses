@@ -6,11 +6,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -61,23 +59,26 @@ class EmployeeServiceImplTest {
 
     @Test
     void registerNewEmployeeTest() {
-        //given 
+        //given
         Employee employee = new Employee(1L,
                 "jackie",
                 "jdoe@gmail.com");
         //when
         underTest.registerNewEmployee(employee);
         //then
-        ArgumentCaptor<Employee> employeeArgumentCaptor =
+       /* ArgumentCaptor<Employee> employeeArgumentCaptor =
                 ArgumentCaptor.forClass(Employee.class);
         verify(employeeRepository).save(employeeArgumentCaptor.capture());
         Employee capturedEmployee = employeeArgumentCaptor.getValue();
         assertThat(capturedEmployee).isEqualTo(employee);
+        */
+        verify(employeeRepository).save(employee);
     }
 
     @Test
     @Disabled
     void updateEmailById() {
+
     }
 
     @Test

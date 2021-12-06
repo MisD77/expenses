@@ -3,7 +3,6 @@ package com.example.expenses.service;
 import com.example.expenses.model.Employee;
 import com.example.expenses.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -75,25 +74,24 @@ class EmployeeServiceImplTest {
     @Test
     void updateEmailByIdTest() {
         // Setup
-        Employee employee = new Employee(0L, "dikshyaa", "email");
-
-        when(employeeRepository.getById(0L)).thenReturn(employee);
-        underTest.updateEmailById("hi", 1L);
-        when(employeeRepository.save(employee)).thenReturn(employee);
+        Employee employee = new Employee(1L, "dikshya", "email");
+        when(employeeRepository.getById(1L)).thenReturn(employee);
+        underTest.updateEmailById("newEmail@gmail.com", 1L);
+        verify(employeeRepository).save(employee);
 
     }
 
     @Test
-    @Disabled
     void deleteEmployeeByIdTest() {
         //given
         Employee employee = new Employee(1L, "dikshya", "dixyach@gmail.com");
 
-        //when
+        when(employeeRepository.getById(1L)).thenReturn(employee);
+
+        // Run the test
         underTest.deleteEmployeeById(1L);
 
-        //then
+        // Verify the results
         verify(employeeRepository).delete(employee);
-
     }
 }

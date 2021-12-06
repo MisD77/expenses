@@ -9,8 +9,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class EmployeeServiceImplTest {
@@ -75,9 +75,12 @@ class EmployeeServiceImplTest {
     @Test
     void updateEmailByIdTest() {
         // Setup
-        Employee employee = new Employee(1L, "diksjua", "email");
-        underTest.updateEmailById("new@gmail.com", 1L);
-        assertEquals(employeeRepository.getById(1L).getEmail(), "new@gmail.com");
+        Employee employee = new Employee(0L, "dikshyaa", "email");
+
+        when(employeeRepository.getById(0L)).thenReturn(employee);
+        underTest.updateEmailById("hi", 1L);
+        when(employeeRepository.save(employee)).thenReturn(employee);
+
     }
 
     @Test

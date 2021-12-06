@@ -14,12 +14,11 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class EmployeeServiceTest {
+class EmployeeServiceImplTest {
 
 
     @Mock private EmployeeRepository employeeRepository;
-    private EmployeeService underTest;
-
+    private EmployeeServiceImpl underTest;
 
     //this runs before each test
     @BeforeEach
@@ -29,38 +28,90 @@ class EmployeeServiceTest {
 
     @Test
     void getEmployeesTest() {
-        //given the employee and email
-        String email = "jdoe@gmail.com";
-        Employee employee = new Employee(1L,
+        //given the employee
+        Employee expectedEmployee = new Employee(1L,
                 "jackie",
-                email);
+                "jdoe@gmail.com");
         //when
         underTest.getEmployees();
         //then verify our mock which is employeeRepository and fail
         verify(employeeRepository).findAll();
+    }
+
+    @Test
+    void getEmployeeByIdTest() {
+        //given
+        Employee employee = new Employee(1L,
+                "jackie",
+                "jdoe@gmail.com");
+
+        //when
+        underTest.getEmployeeById(1L);
+        //then verify our mock which is employeeRepository and fail
+        verify(employeeRepository).findById(1L);
+
+/*
+        //configure employeeRepository.findById
+        when(employeeRepository.findById(1L)).thenReturn(Optional.of(employee));
+
+        Employee result = underTest.getEmployeeById(1L);
+
+        //verify
+        assertThat(result).isEqualTo(employee);*/
 
     }
 
     @Test
+    void getEmployeeByIdReturnsNullTest(){
+        //given
+        Employee employee = null;
+        //when
+        underTest.getEmployeeById(1L);
+        //then verify our mock which is employeeRepository and fail
+        verify(employeeRepository).findById(1L);
+
+           /*//given
+        Employee employee = null;
+
+        when(employeeRepository.findById(1L)).thenReturn(Optional.empty());
+
+        Employee result = underTest.getEmployeeById(1L);
+
+        assertThat(result).isEqualTo(employee);*/
+    }
+
+    @Test
     void registerNewEmployeeTest() {
-        //given the employee and email
-        String email = "jdoe@gmail.com";
+        //given 
         Employee employee = new Employee(1L,
                 "jackie",
-                email);
-
+                "jdoe@gmail.com");
         //when
         underTest.registerNewEmployee(employee);
-
         //then
         ArgumentCaptor<Employee> employeeArgumentCaptor =
                 ArgumentCaptor.forClass(Employee.class);
-
         verify(employeeRepository).save(employeeArgumentCaptor.capture());
-
         Employee capturedEmployee = employeeArgumentCaptor.getValue();
-
         assertThat(capturedEmployee).isEqualTo(employee);
+    }
+
+    /*@Test
+    @Disabled
+    void updateEmailById() {
+        //setup
+        when(employeeRepository.findById(1L)).thenReturn(Optional.of(new Employee(1L, "jackie", "jdoe@gmail.com")));
+        when(employeeRepository.save(new Employee(1L, "jackie", "jdoe@gmail.com"))).
+                thenReturn(new Employee(1L, "jackie", "jdoe@gmail.com"));
+
+        //run
+        underTest.setEmail("newemail@gmail.com",1L);
+
+    }*/
+
+    @Test
+    @Disabled
+    void deleteEmployeeById() {
     }
 
     //when email exists
@@ -84,20 +135,4 @@ class EmployeeServiceTest {
 
     }
 */
-
-    @Test
-    @Disabled
-    void getEmployeeById() {
-
-    }
-
-    @Test
-    @Disabled
-    void updateEmailById() {
-    }
-
-    @Test
-    @Disabled
-    void deleteEmployeeById() {
-    }
 }

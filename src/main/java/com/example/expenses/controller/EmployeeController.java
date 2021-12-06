@@ -70,4 +70,4 @@ public class EmployeeController {
     }
 
 }
-    //can have enmployee/{id} only for get by ID
+    //can have employee/{id} only for get by ID

@@ -1,7 +1,7 @@
 package com.example.expenses.controller;
 
 import com.example.expenses.model.Employee;
-import com.example.expenses.service.EmployeeService;
+import com.example.expenses.service.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,19 +12,19 @@ import java.util.List;
 public class EmployeeController {
 
     //when adding service layer between controller and repository
-    private final EmployeeService employeeService;
+    private final EmployeeServiceImpl employeeServiceImpl;
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService)
+    public EmployeeController(EmployeeServiceImpl employeeServiceImpl)
     {
-        this.employeeService = employeeService;
+        this.employeeServiceImpl = employeeServiceImpl;
     }
 
     //get method to get all employees using the url from db
     @GetMapping
     public List<Employee> getEmployees()
     {
-        return employeeService.getEmployees();
+        return employeeServiceImpl.getEmployees();
     }
 
     //post method to get add employee into the db
@@ -33,7 +33,7 @@ public class EmployeeController {
     {
         for (Employee e: employee)
         {
-            employeeService.registerNewEmployee(e);
+            employeeServiceImpl.registerNewEmployee(e);
         }
     }
 
@@ -41,7 +41,7 @@ public class EmployeeController {
     @GetMapping(path = "/{id}")
     public Employee getEmployeeById(@PathVariable Long id)
     {
-       return employeeService.getEmployeeById(id);
+       return employeeServiceImpl.getEmployeeById(id);
     }
 
     /*
@@ -51,13 +51,13 @@ public class EmployeeController {
     @PutMapping(path="update/{id}")
     public void updateEmailById(@RequestBody String newEmail, @PathVariable Long id)
     {
-        employeeService.updateEmailById(newEmail, id);
+        employeeServiceImpl.updateEmailById(newEmail, id);
     }
 
     //delete method to delete an employee from database
     @DeleteMapping(path="delete/{id}")
     public void deleteEmployeeById(@PathVariable Long id)
     {
-        employeeService.deleteEmployeeById(id);
+        employeeServiceImpl.deleteEmployeeById(id);
     }
 }

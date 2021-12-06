@@ -34,9 +34,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @SneakyThrows
     public void updateEmailById(String newEmail, Long id) {
-        Employee employee = employeeRepository.getById(id);
-            if (employee != null)
-            {
+       Employee employee = employeeRepository.getById(id);
+            if (employee != null){
+
                 employee.setEmail(newEmail);
                 if (employeeRepository.save(employee).getEmail().equals(newEmail))
                     System.out.println("Email updated successfully");
@@ -45,9 +45,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @SneakyThrows
     public void deleteEmployeeById(Long id) {
-        Employee employee = employeeRepository.getById(id);
-        if (employee != null)
-        {
+       Employee employee = employeeRepository.getById(id);
+       if (employee != null){
+
             employeeRepository.deleteById(id);
             if (employeeRepository.getById(id) == null)
                 System.out.println("Employee deleted successfully");

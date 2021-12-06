@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -63,26 +64,33 @@ class EmployeeServiceImplTest {
         Employee employee = new Employee(1L,
                 "jackie",
                 "jdoe@gmail.com");
+
         //when
         underTest.registerNewEmployee(employee);
+
         //then
-       /* ArgumentCaptor<Employee> employeeArgumentCaptor =
-                ArgumentCaptor.forClass(Employee.class);
-        verify(employeeRepository).save(employeeArgumentCaptor.capture());
-        Employee capturedEmployee = employeeArgumentCaptor.getValue();
-        assertThat(capturedEmployee).isEqualTo(employee);
-        */
         verify(employeeRepository).save(employee);
     }
 
     @Test
-    @Disabled
-    void updateEmailById() {
-
+    void updateEmailByIdTest() {
+        // Setup
+        Employee employee = new Employee(1L, "diksjua", "email");
+        underTest.updateEmailById("new@gmail.com", 1L);
+        assertEquals(employeeRepository.getById(1L).getEmail(), "new@gmail.com");
     }
 
     @Test
     @Disabled
-    void deleteEmployeeById() {
+    void deleteEmployeeByIdTest() {
+        //given
+        Employee employee = new Employee(1L, "dikshya", "dixyach@gmail.com");
+
+        //when
+        underTest.deleteEmployeeById(1L);
+
+        //then
+        verify(employeeRepository).delete(employee);
+
     }
 }

@@ -20,15 +20,6 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    /*
-    if service layer was omitted then follow this:
-    private final EmployeeRepository employeeRepository;
-
-    @Autowired
-    public EmployeeController(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }*/
-
     //get method to get all employees using the url from db
     @GetMapping
     public List<Employee> getEmployees()
@@ -47,13 +38,14 @@ public class EmployeeController {
     }
 
     //get method to get an employee by a given id
-    @GetMapping(path = "get/{id}")
+    @GetMapping(path = "/{id}")
     public Employee getEmployeeById(@PathVariable Long id)
     {
        return employeeService.getEmployeeById(id);
     }
 
-    /*put method to update the employee email(or anything else name etc using id)
+    /*
+     put method to update the employee email(or anything else name etc using id)
      find the employee using get request by id, then updates in database
      */
     @PutMapping(path="update/{id}")
@@ -68,6 +60,4 @@ public class EmployeeController {
     {
         employeeService.deleteEmployeeById(id);
     }
-
 }
-    //can have employee/{id} only for get by ID

@@ -16,11 +16,9 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 class EmployeeServiceImplTest {
 
-
     @Mock private EmployeeRepository employeeRepository;
     private EmployeeServiceImpl underTest;
 
-    //this runs before each test
     @BeforeEach
     void setUp() {
         underTest = new EmployeeServiceImpl(employeeRepository);
@@ -44,20 +42,10 @@ class EmployeeServiceImplTest {
         Employee employee = new Employee(1L,
                 "jackie",
                 "jdoe@gmail.com");
-
         //when
         underTest.getEmployeeById(1L);
         //then verify our mock which is employeeRepository and fail
         verify(employeeRepository).findById(1L);
-
-/*
-        //configure employeeRepository.findById
-        when(employeeRepository.findById(1L)).thenReturn(Optional.of(employee));
-
-        Employee result = underTest.getEmployeeById(1L);
-
-        //verify
-        assertThat(result).isEqualTo(employee);*/
 
     }
 
@@ -69,15 +57,6 @@ class EmployeeServiceImplTest {
         underTest.getEmployeeById(1L);
         //then verify our mock which is employeeRepository and fail
         verify(employeeRepository).findById(1L);
-
-           /*//given
-        Employee employee = null;
-
-        when(employeeRepository.findById(1L)).thenReturn(Optional.empty());
-
-        Employee result = underTest.getEmployeeById(1L);
-
-        assertThat(result).isEqualTo(employee);*/
     }
 
     @Test
@@ -96,43 +75,13 @@ class EmployeeServiceImplTest {
         assertThat(capturedEmployee).isEqualTo(employee);
     }
 
-    /*@Test
+    @Test
     @Disabled
     void updateEmailById() {
-        //setup
-        when(employeeRepository.findById(1L)).thenReturn(Optional.of(new Employee(1L, "jackie", "jdoe@gmail.com")));
-        when(employeeRepository.save(new Employee(1L, "jackie", "jdoe@gmail.com"))).
-                thenReturn(new Employee(1L, "jackie", "jdoe@gmail.com"));
-
-        //run
-        underTest.setEmail("newemail@gmail.com",1L);
-
-    }*/
+    }
 
     @Test
     @Disabled
     void deleteEmployeeById() {
     }
-
-    //when email exists
-    /*@Test
-    void shouldNotRegisterEmployeeIfEmailExists() {
-        //given the employee and email
-        String email = "jdoe@gmail.com";
-        Employee employee = new Employee(1L,
-                "jackie",
-                email);
-
-        given(employeeRepository.selectExistsEmail(employee.getEmail())).willReturn(true);
-
-        //when
-        //then
-        assertThatThrownBy(() -> underTest.registerNewEmployee(employee)).
-                isInstanceOf(BadRequestException.class).
-                hasMessageContaining("Email " + employee.getEmail() + " taken, hence employee cannot be added");
-
-        verify(employeeRepository, never()).save(any());
-
-    }
-*/
 }

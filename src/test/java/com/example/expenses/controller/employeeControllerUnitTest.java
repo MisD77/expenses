@@ -26,7 +26,6 @@ import static org.junit.Assert.assertEquals;
 @WebMvcTest(EmployeesController.class)
 public class employeeControllerUnitTest
 {
-
     @MockBean
     EmployeeServiceImpl employeeServiceImpl;
 
@@ -58,10 +57,12 @@ public class employeeControllerUnitTest
     @SneakyThrows
     public void getEmployeesUnitTest()
     {
+
         String uri = "/api/v1/employees/";
         MvcResult result =  mockMvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn();
+
 
         int status = result.getResponse().getStatus();
         String content = result.getResponse().getContentAsString();
@@ -73,9 +74,12 @@ public class employeeControllerUnitTest
     @SneakyThrows
     public void registerNewEmployeeUnitTest()
     {
-        String uri = "/api/v1/employees/";
         Employee employee = new Employee(1L, "dikshya", "dixya@gmail.com");
+        Employee actual = employeeServiceImpl.registerNewEmployee(employee);
+        String actualToString = mapToJson(employee);
 
+
+        String uri = "/api/v1/employees/";
         String inputJson = mapToJson(employee);
         MvcResult result =  mockMvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -85,6 +89,31 @@ public class employeeControllerUnitTest
         int status = result.getResponse().getStatus();
         assertEquals(200, status);
         String content= result.getResponse().getContentAsString();
-        assertEquals(content,"{\"id\":1,\"name\":\"dikshya\",\"email\":\"dixya@gmail.com\"}");
+        //assertEquals(content,"{\"id\":1,\"name\":\"dikshya\",\"email\":\"dixya@gmail.com\"}");
+        assertEquals(content, actualToString);
+    }
+
+    @Test
+    @SneakyThrows
+    public void updateEmailByIdUnitTest()
+    {
+        String uri = "/api/v1/employees/update/1";
+        Employee employee = new Employee(1L, "dikshya", "dixya@gmail.com");
+        String newEmail = "acharya@gmail.com";
+        employee.setEmail(newEmail);
+
+        String inputJson = mapToJson(employee);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andReturn();
+
+        int status = result.getResponse().getStatus();
+        assertEquals(200, status);
+        String content = result.getResponse().getContentAsString();
+        assertEquals(content, "{\"id\":1,\"name\":\"dikshya\",\"email\":\"acharya@gmail.com\"}");
+
+
+
     }
 }

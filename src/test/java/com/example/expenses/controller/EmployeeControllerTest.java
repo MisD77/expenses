@@ -45,12 +45,13 @@ class EmployeeControllerTest {
     void registerNewEmployeeTest() {
         Employee employee = new Employee (1L, "dikshya", "dikshya@gmail.com");
         when(employeeServiceImpl.registerNewEmployee(employee)).thenReturn(employee);
+        String StringContent = "{\"id\": \"1\"," +
+                "\"name\": \"dikshya\"," +
+                "\"email\": \"dikshya@gmail.com\"}";
 
-      mockMvc.perform(post("/api/v1/employees/")
+        mockMvc.perform(post("/api/v1/employees/")
               .contentType(MediaType.APPLICATION_JSON)
-              .content("{\"id\": \"1\"," +
-                      "\"name\": \"dikshya\"," +
-                      "\"email\": \"dikshya@gmail.com\"}"))
+              .content(StringContent))
                 .andExpect(status().isOk());
     }
 

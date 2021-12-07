@@ -5,6 +5,7 @@ import com.example.expenses.service.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @RestController
@@ -21,7 +22,7 @@ public class EmployeeController {
     }
 
     //get method to get all employees using the url from db
-    @GetMapping
+    @GetMapping(value = "/json", produces = MediaType.APPLICATION_JSON)
     public List<Employee> getEmployees()
     {
         return employeeServiceImpl.getEmployees();

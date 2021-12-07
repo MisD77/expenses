@@ -14,13 +14,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 
 @WebMvcTest(EmployeesController.class)
@@ -59,14 +59,33 @@ public class employeeControllerUnitTest
     public void getEmployeesUnitTest()
     {
         String uri = "/api/v1/employees/";
-        MvcResult result =  mockMvc.perform(get(uri)
-                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+        MvcResult result =  mockMvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+                .andReturn();
 
         int status = result.getResponse().getStatus();
         String content = result.getResponse().getContentAsString();
-        Employee[] employee = mapFromJson(content, Employee[].class);
         assertEquals(200, status);
 
+    }
+
+    @Test
+    @SneakyThrows
+    public void registerNewEmployeeUnitTest()
+    {
+        String uri = "/api/v1/employees/";
+        Employee employee = new Employee(1L, "dikshya", "dixya@gmail.com");
+
+        String inputJson = mapToJson(employee);
+        MvcResult result =  mockMvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andReturn();
+
+        int status = result.getResponse().getStatus();
+        assertEquals(200, status);
+        String content= result.getResponse().getContentAsString();
+        assertEquals(content,"{\"id\":1,\"name\":\"dikshya\",\"email\":\"dixya@gmail.com\"}");
     }
 
 

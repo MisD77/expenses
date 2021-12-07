@@ -9,20 +9,20 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="api/v1/employee")
-public class EmployeeController {
+@RequestMapping(path="api/v1/employees")
+public class EmployeesController {
 
     //when adding service layer between controller and repository
     private final EmployeeServiceImpl employeeServiceImpl;
 
     @Autowired
-    public EmployeeController(EmployeeServiceImpl employeeServiceImpl)
+    public EmployeesController(EmployeeServiceImpl employeeServiceImpl)
     {
         this.employeeServiceImpl = employeeServiceImpl;
     }
 
     //get method to get all employees using the url from db
-    @GetMapping(value = "/json", produces = MediaType.APPLICATION_JSON)
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON)
     public List<Employee> getEmployees()
     {
         return employeeServiceImpl.getEmployees();
@@ -46,9 +46,9 @@ public class EmployeeController {
     }
 
     /*
-     put method to update the employee email(or anything else name etc using id)
+     put method to update the employee email(or anything else name using id)
      find the employee using get request by id, then updates in database
-     */
+    */
     @PutMapping(path="update/{id}")
     public void updateEmailById(@RequestBody String newEmail, @PathVariable Long id)
     {

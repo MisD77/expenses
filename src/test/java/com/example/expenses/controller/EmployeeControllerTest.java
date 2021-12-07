@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,11 +56,12 @@ class EmployeeControllerTest {
         Employee employee = new Employee (1L, "dikshya", "dikshya@gmail.com");
         when(employeeServiceImpl.registerNewEmployee(employee)).thenReturn(employee);
 
-      mockMvc.perform(
-              post("/api/v1/employees/")
-                      .contentType(MediaType.APPLICATION_JSON)
-                        .characterEncoding("utf-8"))
-                        .andExpect(status().isCreated());
+      mockMvc.perform(post("/api/v1/employees/")
+              .contentType(MediaType.APPLICATION_JSON)
+              .content("{\"id\": \"1\"," +
+                      "\"name\": \"dikshya\"," +
+                      "\"email\": \"dikshya@gmail.com\"}"))
+                .andExpect(status().isOk());
     }
 
     @Test

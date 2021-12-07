@@ -20,10 +20,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-
-
-
-//@ExtendWith(MockitoExtension.class)
 @WebMvcTest(EmployeesController.class)
 class EmployeeControllerTest {
 
@@ -33,17 +29,11 @@ class EmployeeControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    /*@Before
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(employeesController).build(); //gives a mock mvc for testing
-    }*/
-
     @Test
     @SneakyThrows
     void getEmployeesTest(){
         Employee employee = new Employee(1L, "dikshya", "dikshya@gmail.com");
-        List<Employee> employees = new ArrayList<Employee>();
+        List<Employee> employees = new ArrayList<>();
         when(employeeServiceImpl.getEmployees()).thenReturn(employees);
 
         mockMvc.perform(get("/api/v1/employees/"))

@@ -34,12 +34,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @SneakyThrows
-    public void updateEmailById(String newEmail, Long id) {
+    public Employee updateEmailById(String newEmail, Long id) {
        Employee employee = employeeRepository.getById(id);//.orElse(null);
            if (employee != null){
                 employee.setEmail(newEmail);
                 employeeRepository.save(employee);
             }
+           return employee;
     }
 
     @SneakyThrows

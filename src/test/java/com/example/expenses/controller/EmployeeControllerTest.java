@@ -50,9 +50,9 @@ class EmployeeControllerTest {
                 "\"email\": \"dikshya@gmail.com\"}";
 
         mockMvc.perform(post("/api/v1/employees/")
-              .contentType(MediaType.APPLICATION_JSON)
-              .content(StringContent))
-                .andExpect(status().isOk());
+                  .contentType(MediaType.APPLICATION_JSON)
+                  .content(StringContent))
+                  .andExpect(status().isOk());
     }
 
     @Test

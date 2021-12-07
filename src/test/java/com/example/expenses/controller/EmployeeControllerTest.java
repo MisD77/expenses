@@ -1,50 +1,57 @@
 package com.example.expenses.controller;
 
+import com.example.expenses.model.Employee;
 import com.example.expenses.service.EmployeeServiceImpl;
 import lombok.SneakyThrows;
 import org.junit.Before;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(MockitoExtension.class)
 class EmployeeControllerTest {
 
+    @InjectMocks private EmployeesController employeesController;
+
     private MockMvc mockMvc;
-  /*  @Autowired
-    private EmployeeServiceImpl employeeServiceImpl;
-*/
-    //@InjectMocks private EmployeesController employeesController;
+
+    @Mock EmployeeServiceImpl underTest;
 
     @Before
     void setUp() {
-        //MockitoAnnotations.openMocks(this);
-        //employeesController = new EmployeesController(employeeServiceImpl);
-        mockMvc = MockMvcBuilders.standaloneSetup(new employeesController().build()); //gives a mock mvc for testing
+        MockitoAnnotations.openMocks(this);
+        mockMvc = MockMvcBuilders.standaloneSetup(employeesController).build(); //gives a mock mvc for testing
     }
 
     @Test
     @SneakyThrows
     void getEmployeesTest(){
-        /*Employee employee = new Employee(1L, "dikshya", "dikshya@gmail.com");
-        List<Employee> employees = new ArrayList<Employee>(1);
-        employees.add(employee);*/
-        //when(employeeServiceImpl.getEmployees()).thenReturn(employees);
+        Employee employee = new Employee(1L, "dikshya", "dikshya@gmail.com");
+        List<Employee> employees = new ArrayList<Employee>();
+        //employees.add(employee);
+        when(underTest.getEmployees()).thenReturn(employees);
 
-        this.mockMvc.perform(get("/"))
+        this.mockMvc.perform(get("/api/v1/employees"))
                 .andExpect(status().isOk())
-                .andExpect(content().json("[{'id':1,'name':'dikshya','email':'dikshya@gmail.com'}]"));
+                .andExpect(content().
+                        json("{'id':1,'name':'dikshya','email':'dikshya@gmail.com'}"));
 
-        //verify(employeeServiceImpl).getEmployees();
+        verify(underTest).getEmployees();
     }
 
     @Test

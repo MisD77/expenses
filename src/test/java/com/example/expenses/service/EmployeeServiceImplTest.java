@@ -5,6 +5,7 @@ import com.example.expenses.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -15,13 +16,13 @@ import static org.mockito.Mockito.when;
 class EmployeeServiceImplTest {
 
     @Mock private EmployeeRepository employeeRepository;
-    private EmployeeServiceImpl underTest;
+    @InjectMocks private EmployeeServiceImpl underTest;
 
     @BeforeEach
     void setUp() {
         underTest = new EmployeeServiceImpl(employeeRepository);
     }
-
+    
     @Test
     void getEmployeesTest() {
         //given the employee

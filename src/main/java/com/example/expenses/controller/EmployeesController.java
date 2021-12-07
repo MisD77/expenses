@@ -29,13 +29,11 @@ public class EmployeesController {
     }
 
     //post method to get add employee into the db
-    @PostMapping
-    public void registerNewEmployee(@RequestBody List<Employee> employee)
+    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON)
+    public Employee registerNewEmployee(@RequestBody Employee employee)
     {
-        for (Employee e: employee)
-        {
-            employeeServiceImpl.registerNewEmployee(e);
-        }
+        employeeServiceImpl.registerNewEmployee(employee);
+        return employee;
     }
 
     //get method to get an employee by a given id

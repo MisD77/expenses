@@ -27,9 +27,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @SneakyThrows
-    public void registerNewEmployee(Employee employee)
+    public Employee registerNewEmployee(Employee employee)
     {
         employeeRepository.save(employee);
+        return employee;
     }
 
     @SneakyThrows

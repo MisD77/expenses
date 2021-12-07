@@ -70,7 +70,6 @@ class EmployeeServiceImplTest {
         Employee employee = new Employee(1L,
                 "jackie",
                 "jdoe@gmail.com");
-
         //when
         underTest.registerNewEmployee(employee);
 

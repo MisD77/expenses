@@ -10,12 +10,16 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+
 
 
 
@@ -47,9 +51,16 @@ class EmployeeControllerTest {
     }
 
     @Test
-    @Disabled
-    void registerNewEmployee() {
+    @SneakyThrows
+    void registerNewEmployeeTest() {
+        Employee employee = new Employee (1L, "dikshya", "dikshya@gmail.com");
+        when(employeeServiceImpl.registerNewEmployee(employee)).thenReturn(employee);
 
+      mockMvc.perform(
+              post("/api/v1/employees/")
+                      .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("utf-8"))
+                        .andExpect(status().isCreated());
     }
 
     @Test

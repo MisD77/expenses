@@ -97,22 +97,27 @@ public class employeeControllerUnitTest
     @SneakyThrows
     public void updateEmailByIdUnitTest()
     {
-        String uri = "/api/v1/employees/update/1";
-        Employee employee = new Employee(1L, "dikshya", "dixya@gmail.com");
-        //String newEmail = "acharya@gmail.com";
-        //Employee newEmployee = employeeServiceImpl.updateEmailById(newEmail, 1L);
 
-        //String actualToString = mapToJson(newEmployee);*/
-        String inputJson = mapToJson(employee);
+        Employee employee = new Employee(1L, "dikshya", "dixya@gmail.com");
+        Employee actual = employeeServiceImpl.registerNewEmployee(employee);
+        String newEmail = "acharya@gmail.com";
+        actual = employeeServiceImpl.updateEmailById(newEmail, 1L);
+
+        String uri = "/api/v1/employees/update/1";
+        String actualToString = mapToJson(actual);
+        System.out.println("I am content " + actualToString);//null
+        String inputJson = newEmail;
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andReturn();
+        System.out.println(result);
 
         int status = result.getResponse().getStatus();
         assertEquals(200, status);
-        //String content = result.getResponse().getContentAsString();
-       // assertEquals(content, actualToString);
+        String content = result.getResponse().getContentAsString(); //expected
+        System.out.println("I am content " + content);
+        assertEquals(content, actualToString);
 
     }
 }

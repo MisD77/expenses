@@ -1,22 +1,28 @@
 package com.example.expenses.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Data
 @Builder
+@Table(name = "orders")
 public class Order {
 
     @Id
+    @GeneratedValue
+    @JsonIgnore
     private Long orderId;
-    private String user;
+    private String userName;
     private String orderName;
     private String description;
-    private float cost;
+    private Float cost;
     private String reasonForPurchase;
 
     /*

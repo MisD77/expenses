@@ -97,10 +97,6 @@ public class employeeControllerUnitTest
     @SneakyThrows
     public void updateEmailByIdUnitTest()
     {
-
-        Employee employee = new Employee(1L, "dikshya", "dixya@gmail.com");
-        employee.setEmail("acharya@gmail.com");
-
         String uri = "/api/v1/employees/update/1";
         String inputJson = "acharya@gmail.com";
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put(uri)
@@ -110,8 +106,6 @@ public class employeeControllerUnitTest
 
         int status = result.getResponse().getStatus();
         assertEquals(200, status);
-        String content = result.getResponse().getContentAsString();
-        //assertEquals(content, actualToString);
 
     }
 }

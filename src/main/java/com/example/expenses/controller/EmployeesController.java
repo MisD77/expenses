@@ -48,9 +48,10 @@ public class EmployeesController {
      find the employee using get request by id, then updates in database
     */
     @PutMapping(path="update/{id}")
-    public void updateEmailById(@RequestBody String newEmail, @PathVariable Long id)
+    public void updateEmailById(@RequestBody String newEmail, @PathVariable  Long id)
     {
-        employeeServiceImpl.updateEmailById(newEmail, id);
+       employeeServiceImpl.updateEmailById(newEmail, id);
+
     }
 
     //delete method to delete an employee from database

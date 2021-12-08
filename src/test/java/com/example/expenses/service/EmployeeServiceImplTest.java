@@ -35,6 +35,7 @@ class EmployeeServiceImplTest {
         //then verify our mock
         verify(employeeRepository).findAll();
     }
+    //set up an expectation and return the expected, assert the result and expected
 
     @Test
     void getEmployeeByIdTest() {
@@ -82,6 +83,9 @@ class EmployeeServiceImplTest {
         // given
         Employee employee = new Employee(1L, "dikshya", "email");
         when(employeeRepository.getById(1L)).thenReturn(employee);
+       /* check setemail verify that the set email method was called; second way - use a real employee and check it for
+        email is equal to 89
+        */
 
         //Run the test
         underTest.updateEmailById("newEmail@gmail.com", 1L);

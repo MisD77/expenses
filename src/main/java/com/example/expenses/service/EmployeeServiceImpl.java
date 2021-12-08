@@ -23,7 +23,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public Employee getEmployeeById(Long id) {
-        return employeeRepository.getById(id);//.orElse(null);
+        return employeeRepository.findById(id).orElse(null);
     }
 
     @SneakyThrows
@@ -34,13 +34,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @SneakyThrows
-    public Employee updateEmailById(String newEmail, Long id) {
+    public void updateEmailById(String newEmail, Long id) {
        Employee employee = employeeRepository.getById(id);//.orElse(null);
            if (employee != null){
                 employee.setEmail(newEmail);
                 employeeRepository.save(employee);
             }
-           return employee;
     }
 
     @SneakyThrows

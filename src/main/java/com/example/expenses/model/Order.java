@@ -26,7 +26,7 @@ public class Order {
     private String reasonForPurchase;
 
     /*
-    * 1. RESTful endpoint for a new purchase order request
+    * 1. REST endpoint for a new purchase order request
     1. Fields:
         1. User
         2. Item Name

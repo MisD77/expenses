@@ -20,7 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @WebMvcTest(EmployeesController.class)

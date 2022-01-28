@@ -1,3 +1,4 @@
+/*
 package com.example.expenses.service;
 
 import com.example.expenses.model.Employee;
@@ -36,7 +37,8 @@ class EmployeeServiceImplTest {
     }
     //set up an expectation and return the expected, assert the result and expected
 
-  /*  @Test
+  */
+/*  @Test
     void getEmployeeByIdTest() {
         //given
         Employee employee = new Employee(1L,
@@ -49,7 +51,9 @@ class EmployeeServiceImplTest {
         //then verify our mock which is employeeRepository and fail
         verify(employeeRepository).findById(1L);
 
-    }*/
+    }*//*
+
+*/
 /*
     @Test
     void getEmployeeByIdReturnsNullTest(){
@@ -62,7 +66,8 @@ class EmployeeServiceImplTest {
         //then verify our mock which is employeeRepository and fail
         verify(employeeRepository).findById(1L);
 
-    }*/
+    }*//*
+
 
     @Test
     void registerNewEmployeeTest() {
@@ -77,14 +82,19 @@ class EmployeeServiceImplTest {
         verify(employeeRepository).save(employee);
     }
 
- /*   @Test
+ */
+/*   @Test
     void updateEmailByIdTest() {
         // given
         Employee employee = new Employee(1L, "dikshya", "email");
         when(employeeRepository.getById(1L)).thenReturn(employee);
-       *//* check setemail verify that the set email method was called; second way - use a real employee and check it for
+       *//*
+*/
+/* check setemail verify that the set email method was called; second way - use a real employee and check it for
         email is equal to 89
         *//*
+*/
+/*
 
         //Run the test
         underTest.updateEmailById("newEmail@gmail.com", 1L);
@@ -92,9 +102,11 @@ class EmployeeServiceImplTest {
         //verify the results
         verify(employeeRepository).save(employee);
 
-    }*/
+    }*//*
 
-  /*  @Test
+
+  */
+/*  @Test
     void deleteEmployeeByIdTest() {
         //given
         Employee employee = new Employee(1L, "dikshya", "dixyach@gmail.com");
@@ -106,5 +118,6 @@ class EmployeeServiceImplTest {
 
         // Verify the results
         verify(employeeRepository).delete(employee);
-    }*/
-}
+    }*//*
+
+}*/

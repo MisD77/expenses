@@ -20,15 +20,17 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
+            <version>2.6.3</version>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+            <version>2.6.3</version>
+        </dependency>
 		<dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.5.9</version>
+            <version>1.6.4</version>
         </dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
@@ -38,12 +40,14 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+            <version>2.6.3</version>
+            <scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
+            <version>2.6.3</version>
+            <scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -56,22 +60,30 @@
 			<artifactId>javax.ws.rs-api</artifactId>
 			<version>2.1.1</version>
 		</dependency>
-		<!--avro plugins -->
+		<!--avro dependencies -->
 		<dependency>
 			<groupId>org.apache.avro</groupId>
 			<artifactId>avro-compiler</artifactId>
-			<version>1.8.2</version>
+			<version>1.11.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.avro</groupId>
 			<artifactId>avro-maven-plugin</artifactId>
-			<version>1.8.2</version>
+			<version>1.11.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.vladkrava</groupId>
 			<artifactId>avro-converter</artifactId>
 			<version>1.0.1</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-stream-schema-server -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream-schema-server</artifactId>
+			<version>2.2.1.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -79,6 +91,28 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<!-- plugin to generate the schema for us-->
+			<plugin>
+				<groupId>org.apache.avro</groupId>
+				<artifactId>avro-maven-plugin</artifactId>
+				<version>1.11.0</version>
+				<executions>
+					<execution>
+						<id>schemas</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>schema</goal>
+							<goal>protocol</goal>
+							<goal>idl-protocol</goal>
+						</goals>
+						<configuration>
+							<sourceDirectory>${project.basedir}/src/main/resources/</sourceDirectory>
+							<outputDirectory>${project.basedir}/src/main/java/</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

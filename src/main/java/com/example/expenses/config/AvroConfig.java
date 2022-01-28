@@ -18,6 +18,7 @@ public class AvroConfig implements WebMvcConfigurer {
     @Override
     public void configureMessageConverters(final List converters)
     {
+        WebMvcConfigurer.super.configureMessageConverters(converters);
         converters.add(0, new AvroJsonHttpMessageConverter());
         converters.add(1, new MappingJackson2HttpMessageConverter());
     }

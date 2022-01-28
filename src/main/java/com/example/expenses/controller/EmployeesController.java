@@ -6,11 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import java.util.List;
-
 @RestController
 @RequestMapping(path="api/v1/employees")
 public class EmployeesController {
@@ -24,11 +19,8 @@ public class EmployeesController {
         this.employeeServiceImpl = employeeServiceImpl;
     }
 
-    //get method to get all employees using the url from db
-
-    @Produces("avro/binary")
-    @Consumes("avro/binary")
-    @GetMapping(value = "/", produces = "application/avro-json", consumes = "application/avro-json")
+    /*//get method to get all employees using the url from db
+     @GetMapping(value = "/", produces ="application/avro+json", consumes = "application/avro+json")
     public List<Employee> getEmployees()
     {
         System.out.println("Hello getEmployees");
@@ -36,27 +28,28 @@ public class EmployeesController {
     }
 
     //post method to get add employee into the db
-    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON)
+    @PostMapping(value = "/", produces = "application/avro+json")
     public Employee registerNewEmployee(@RequestBody Employee employee)
     {
         employeeServiceImpl.registerNewEmployee(employee);
         return employee;
+    }*/
+
+    @GetMapping(value = "/start")
+    public ResponseEntity<Employee> start(Employee employee)
+    {
+        System.out.println("Hello");
+        return employeeServiceImpl.testAvro(employee);
     }
 
-    @PostMapping(value = "/getavroecho", produces = "application/avro-json", consumes = "application/avro-json")
+    @PostMapping(value = "/", produces = "application/avro+json")
     public Employee avroEcho(@RequestBody Employee employee)
     {
         System.out.println("Hello avroEcho");
         return employee;
     }
 
-    @GetMapping(value = "/getavrostart")
-    public ResponseEntity<Employee> start(Employee employee)
-    {
-        System.out.println("Hello");
-        return employeeServiceImpl.testAvro(employee);
 
-    }
 
    /* //get method to get an employee by a given id
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON)

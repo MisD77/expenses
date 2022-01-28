@@ -4,7 +4,11 @@ import com.example.expenses.model.Employee;
 import com.example.expenses.repository.EmployeeRepository;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -12,6 +16,9 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Autowired
     public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
@@ -22,10 +29,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public Employee getEmployeeById(Long id) {
-        return employeeRepository.findById(id).orElse(null);
-    }
-
     @SneakyThrows
     public Employee registerNewEmployee(Employee employee)
     {
@@ -34,22 +37,35 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @SneakyThrows
-    public void updateEmailById(String newEmail, Long id) {
-       Employee employee = employeeRepository.getById(id);//.orElse(null);
-           if (employee != null){
-                employee.setEmail(newEmail);
-                employeeRepository.save(employee);
-            }
+    public ResponseEntity<Employee> testAvro(Employee employee)
+    {
+        HttpEntity<Employee> request = new HttpEntity<>(employee);
+        ResponseEntity<Employee> response = restTemplate.exchange("https://localhost:8080/api/v1/employees", HttpMethod.POST, request, Employee.class);
+        return response;
     }
 
-    @SneakyThrows
-    public void deleteEmployeeById(Long id) {
-       Employee employee = employeeRepository.getById(id);//.orElse(null);
-       if (employee != null){
-            employeeRepository.delete(employee);
-          if (employeeRepository.getById(id) == null)
-                System.out.println("Employee deleted successfully");
+/*
+    public Employee getEmployeeById(Long id) {
+        return employeeRepository.findById(id).orElse(null);
+    }
+
+        @SneakyThrows
+        public void updateEmailById(String newEmail, Long id) {
+           Employee employee = employeeRepository.getById(id);//.orElse(null);
+               if (employee != null){
+                    employee.setEmail(newEmail);
+                    employeeRepository.save(employee);
+                }
         }
 
-    }
+        @SneakyThrows
+        public void deleteEmployeeById(Long id) {
+           Employee employee = employeeRepository.getById(id);//.orElse(null);
+           if (employee != null){
+                employeeRepository.delete(employee);
+              if (employeeRepository.getById(id) == null)
+                    System.out.println("Employee deleted successfully");
+            }
+
+        }*/
 }

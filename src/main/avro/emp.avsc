@@ -1,0 +1,10 @@
+{
+   "namespace": "com.example.expenses",
+   "type": "record",
+   "name": "Employee",
+   "fields": [
+      {"name": "id", "type": "int"},
+      {"name": "name", "type": "string"},
+      {"name": "email", "type": "string"}
+   ]
+}

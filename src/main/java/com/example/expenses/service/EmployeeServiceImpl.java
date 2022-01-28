@@ -5,6 +5,7 @@ import com.example.expenses.repository.EmployeeRepository;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     public ResponseEntity<Employee> testAvro(Employee employee)
     {
         HttpEntity<Employee> request = new HttpEntity<>(employee);
-        ResponseEntity<Employee> response = restTemplate.exchange("https://localhost:8080/api/v1/employees", HttpMethod.POST, request, Employee.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/avro+json");
+        HttpEntity entity = new HttpEntity(headers);
+        ResponseEntity<Employee> response =  restTemplate.exchange("https://localhost:8080/api/v1/employees", HttpMethod.POST, entity, Employee.class);
+       // ResponseEntity<Employee> response = restTemplate.exchange("https://localhost:8080/api/v1/employees",entity,  HttpMethod.POST, request, Employee.class);
         return response;
     }
 
